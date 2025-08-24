@@ -1,0 +1,148 @@
+/* ---------- Programmer Theme (Dark Terminal) ---------- */
+@font-face{
+  font-family: "JetBrainsMono";
+  src: local("JetBrains Mono"), local("JetBrainsMono");
+}
+
+:root{
+  /* colors */
+  --bg: #07090d;
+  --grid1: rgba(99,102,241,.06);
+  --grid2: rgba(34,197,94,.05);
+  --card: #0b1220;
+  --text: #e6f1ff;
+  --muted: #8aa0b6;
+  --accent: #7dd3fc;
+  --accent-2: #a78bfa;
+  --border: #243041;
+  --pill: #0a1628;
+  --shadow: 0 12px 28px rgba(0,0,0,.45);
+  --prompt: #22c55e;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  color: var(--text);
+  font: 15.5px/1.7 "JetBrainsMono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background:
+    radial-gradient(800px 400px at 85% 8%, rgba(167,139,250,.12), transparent 45%),
+    radial-gradient(900px 500px at 10% -8%, rgba(125,211,252,.12), transparent 55%),
+    linear-gradient(0deg, transparent 0%, rgba(255,255,255,.02) 100%),
+    repeating-linear-gradient(0deg, transparent 0 34px, var(--grid1) 34px 35px),
+    repeating-linear-gradient(90deg, transparent 0 34px, var(--grid2) 34px 35px),
+    var(--bg);
+}
+
+.container{ max-width: 1000px; padding: 0 22px; margin: 0 auto; }
+
+/* ---------- Header (sticky ให้ดูสวย และไม่ทับคอนเทนต์) ---------- */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(125,211,252,.08), transparent),
+    linear-gradient(180deg, rgba(167,139,250,.08), transparent);
+  backdrop-filter: blur(8px);
+}
+
+/* กำหนดความสูงขั้นต่ำของ header ให้ครอบ avatar ทั้งใบ */
+.header-inner{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  align-items: center;
+  min-height: 160px;   /* <<< ปรับได้ 140–180 ถ้าชิดเกินไป */
+  padding: 20px 0;
+}
+
+/* รูป avatar ไม่ยื่นลงมาทับการ์ด */
+.avatar{
+  width: 120px; height: 120px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: #111;
+  transform: none;
+  margin: 0;
+}
+
+/* กันพื้นที่ใต้ header เล็กน้อยเพื่อไม่ให้การ์ดชน */
+main.container{ margin-top: 16px; }
+
+/* ให้เลื่อนแบบ anchor (#summary/#projects) ไม่ชนหัวเว็บ */
+html{ scroll-padding-top: 176px; } /* = min-height(160) + 16 margin */
+
+/* ---------- Headline ---------- */
+.headline h1{
+  margin: 0 0 6px;
+  font-size: 2rem;
+  letter-spacing: .4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.role{ margin: 0 0 10px; color: var(--muted); }
+.contact{ list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 12px 18px; }
+a{ color: var(--accent); text-decoration: none; }
+a:hover, a:focus{ text-decoration: underline; }
+
+/* ---------- Cards & Sections ---------- */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%), var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px 22px;
+  margin: 22px 0;
+  box-shadow: var(--shadow);
+}
+.card h2{ margin: 0 0 12px; letter-spacing: .3px; font-weight: 700; }
+
+.job + .job{ margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--border); }
+.job-header{ display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; margin-bottom: 6px; }
+.job-header h3{ margin: 0; font-size: 1.06rem; }
+.job-header .at{ color: var(--muted); font-weight: 600; }
+.job-header .meta{ color: var(--muted); font-size: .95rem; }
+
+.cli-list{ list-style: none; padding: 0; margin: 0; }
+.cli-list li{ padding: 4px 0; display: flex; gap: 10px; align-items: flex-start; }
+.cli-list .prompt{ color: var(--prompt); user-select: none; min-width: 12px; margin-top: 1px; }
+
+/* tags / pills */
+.tags{ margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+.tags span, .pill-list li{
+  background: var(--pill);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .87rem;
+  color: var(--text);
+}
+
+/* two columns */
+.two-col{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pill-list{ list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* footer */
+.site-footer{ color: var(--muted); text-align: center; padding: 24px 0 60px; font-size: .95rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px){
+  .header-inner{ grid-template-columns: 1fr; text-align: center; min-height: 190px; }
+  html{ scroll-padding-top: 206px; } /* 190 + 16 */
+  .avatar{ margin: 0 auto; border-radius: 50%; }
+  .two-col{ grid-template-columns: 1fr; }
+}
+
+/* ---------- Print ---------- */
+@media print{
+  body{ background:#fff; }
+  .site-header{ position: static; border: none; }
+  .card{ box-shadow: none; background:#fff; }
+  a{ color:#000; text-decoration: underline; }
+  .site-footer{ display:none; }
+}
